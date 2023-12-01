@@ -3,52 +3,47 @@ import { getInputByDayNumber } from "../common"
 module.exports = {
     day: "01",
     name: "Trebuchet",
-    async execute(): Promise<any> {
+    async part1(): Promise<void> {
         const fileLines: string[] = getInputByDayNumber("01").split("\n")
         const calibrationValues: number[] = []
 
         fileLines.forEach((line: string) => {
-            let calibrationValueIndexes: number[] = []
-            let calibrationValueNumbers: number[] = []
+            let lineNumbers: string[] = []
             const lineArray = line.split("")
-            console.log(lineArray)
 
-
-            lineArray.forEach((char: string, index: number) => {
-                let number: string = ""
-
-                while (!isNaN(Number(lineArray[index]))) {
-                    number += lineArray[index]
-                    console.log(number)
-                    index++
-
-                }
-
-                if (number != "") {
-                    if (calibrationValueIndexes.length <= 0) { 
-                        calibrationValueIndexes[0] = index
-                        calibrationValueNumbers[0] = Number(number) 
-                    }
-                    else if (calibrationValueIndexes.length == 1 && index > calibrationValueIndexes[0]) { 
-                        calibrationValueIndexes[1] = index
-                        calibrationValueNumbers[1] = Number(number) 
-                    }
-                    else if (calibrationValueIndexes.length == 2 && index > calibrationValueIndexes[1]) { 
-                        calibrationValueIndexes[1] = index 
-                        calibrationValueNumbers[1] = Number(number) 
-                    }
-                }
+            lineArray.forEach((char: string) => {
+                console.log(!isNaN(Number(char)))
+                if (!isNaN(Number(char))) lineNumbers.push(char)
             })
-            let calibrationValue: string = calibrationValueIndexes.length == 1 ? lineArray[calibrationValueIndexes[0]] : lineArray[calibrationValueIndexes[0]] + lineArray[calibrationValueIndexes[1]]
+            let calibrationValue: string = lineNumbers.length == 1 ? (lineNumbers[0] + lineNumbers[0]) : (lineNumbers[0] + lineNumbers[lineNumbers.length - 1])
 
             calibrationValues.push(Number(calibrationValue))
         })
-        /*
+        let calibrationValuesSum: number = calibrationValues.reduce((acc, current) => acc + current, 0);
+
         console.log(`Calibration values: ${calibrationValues}`)
+        console.log(`The sum of the calibration values: ${calibrationValuesSum}`)
+    },
+    async part2(): Promise<void> {
+        const str = "xtwone3four"
 
-        let calibrationValuesSum: number = 0
-        calibrationValues.forEach((value) => calibrationValuesSum += value)
-
-        console.log(`\nThe sum of the calibration values: ${calibrationValuesSum}`)*/
+        const numbersMap: { [key: string]: string } = {
+            "one": "1",
+            "two": "2",
+            "three": "3",
+            "four": "4",
+            "five": "5",
+            "six": "6",
+            "seven": "7",
+            "eight": "8",
+            "nine": "9",
+        }
+    
+        const newStr = Object.keys(numbersMap).reduce((acc, wordNumber) => {
+            const regExp = new RegExp(wordNumber, "g")
+            return acc.replace(regExp, numbersMap[wordNumber])
+        }, str)
+        
+        console.log(newStr)
     }
 }

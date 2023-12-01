@@ -14,13 +14,23 @@ const getDayPathByNumber = (dayNumber: string): string | undefined => {
     return getDays().find((path) => path.includes(`day${dayNumber}.js`))
 }
 
-const startSolution = (filePath: string | undefined): void => {
+const startSolution = (filePath: string | undefined, part: string): void => {
     if (filePath) {
         if (!fs.existsSync(filePath)) return console.error("File not exist")
 
         const day = require(filePath)
-    
-        if ("execute" in day && typeof day.execute === "function") day.execute()
+        
+        switch (part) {
+            case "2":
+                day.part2()
+                break
+            case "1":
+                day.part1()
+                break
+            default:
+                day.part1()
+                break
+        }
     } else return console.error("File not exist")
 }
 
