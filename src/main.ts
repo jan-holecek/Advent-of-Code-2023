@@ -1,7 +1,11 @@
-import { getDays } from "./common"
+import { startSolution, getDayPathByNumber } from "./common"
+
+const config = {
+    activeDayNumber: "01" 
+}
 
 const start = async () => {
-    console.log(getDays())
+    startSolution(getDayPathByNumber(config.activeDayNumber))
 }
 
 start()
