@@ -16,6 +16,9 @@ module.exports = {
 
             return calibrationValues
         },
+        containsWord(line: string, words: string[]): boolean {
+            return words.some(word => line.includes(word))
+        },
         replaceWithDigit(line: string): string {
             const digits: { [key: string]: string } = {
                 one: "1",
@@ -29,15 +32,18 @@ module.exports = {
                 nine: "9"
             }
 
-            for (const word of Object.keys(digits).sort((a, b) => b.length - a.length)) {
-                if (line.includes(word)) {
-                    const wordRegex = new RegExp(Object.keys(digits).join('|'), 'g')
+            for (const word of Object.keys(digits)) {
+                if (this.containsWord(line, [word])) {
+                    const wordRegex = new RegExp(word, "g")
 
                     line = line.replace(wordRegex, match => {
-                        return `${match[0]}${digits[match]}${match[match.length - 1]}`
+                        line = `${match[0]}${digits[match]}${match[match.length - 1]}`
+
+                        return line
                     })
                 }
             }
+
             return line
         }
     },
@@ -53,7 +59,7 @@ module.exports = {
         const fileLines: string[] = getInputByDayNumber("01").split("\n")
         const newFileLines: string[] = []
 
-        fileLines.forEach((line: string) => {
+        fileLines.forEach((line: string, i) => {
             newFileLines.push(this.helpers.replaceWithDigit(line))
         })
 
