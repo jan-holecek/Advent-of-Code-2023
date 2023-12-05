@@ -17,7 +17,6 @@ const getDayPathByNumber = (dayNumber: string): string | undefined => {
 const startSolution = (filePath: string | undefined, part: string): void => {
     if (filePath) {
         if (!fs.existsSync(filePath)) return console.error("File not exist")
-
         const day = require(filePath)
         
         switch (part) {
@@ -25,9 +24,6 @@ const startSolution = (filePath: string | undefined, part: string): void => {
                 day.part2()
                 break
             case "1":
-                day.part1()
-                break
-            default:
                 day.part1()
                 break
         }

@@ -48,7 +48,7 @@ module.exports = {
         }
     },
     async part1(): Promise<void> {
-        const fileLines: string[] = getInputByDayNumber("01").split("\n")
+        const fileLines: string[] = getInputByDayNumber(this.day).split("\n")
         const calibrationValues: number[] = this.helpers.getCalibrationValues(fileLines)
         const calibrationValuesSum: number = calibrationValues.reduce((a, b) => a + b, 0)
 
@@ -56,7 +56,7 @@ module.exports = {
         console.log(`The sum of the calibration values: ${calibrationValuesSum}`)
     },
     async part2(): Promise<void> {
-        const fileLines: string[] = getInputByDayNumber("01").split("\n")
+        const fileLines: string[] = getInputByDayNumber(this.day).split("\n")
         const newFileLines: string[] = []
 
         fileLines.forEach((line: string, i) => {

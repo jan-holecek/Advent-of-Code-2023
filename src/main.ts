@@ -1,7 +1,7 @@
 import { startSolution, getDayPathByNumber } from "./common"
 
 const config = {
-    activeDayNumber: "01",
+    activeDayNumber: "02",
     part: "2"
 }
 
